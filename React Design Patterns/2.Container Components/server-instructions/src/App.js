@@ -1,6 +1,8 @@
 import { CurrentUserLoader } from "./CurrentUserLoader";
 import { UserLoader } from "./UserLoader";
 import { UserInfo } from "./UserInfo";
+import { ResourceLoader } from "./ResourceLoader";
+import { ProductInfo } from "./ProductInfo";
 
 function App() {
   return (
@@ -8,16 +10,25 @@ function App() {
     //   <UserInfo />
     // </CurrentUserLoader>
 
+    // <>
+    //   <UserLoader userId="123">
+    //     <UserInfo />
+    //   </UserLoader>
+    //   <UserLoader userId="234">
+    //     <UserInfo />
+    //   </UserLoader>
+    //   <UserLoader userId="345">
+    //     <UserInfo />
+    //   </UserLoader>
+    // </>
+
     <>
-      <UserLoader userId="123">
+      <ResourceLoader resourceUrl="/users/123" resourceName="user">
         <UserInfo />
-      </UserLoader>
-      <UserLoader userId="234">
-        <UserInfo />
-      </UserLoader>
-      <UserLoader userId="345">
-        <UserInfo />
-      </UserLoader>
+      </ResourceLoader>
+      <ResourceLoader resourceUrl="/products/1234" resourceName="product">
+        <ProductInfo />
+      </ResourceLoader>
     </>
   );
 }
