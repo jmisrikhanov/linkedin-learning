@@ -6,6 +6,17 @@ import { ProductInfo } from "./ProductInfo";
 import { DataSource } from "./DataSource";
 import axios from "axios";
 
+const getServerData = (url) => async () => {
+  const response = await axios.get(url);
+  return response.data;
+};
+
+const getLocalStorageData = (key) => () => {
+  return localStorage.getItem(key);
+};
+
+const Text = ({ message }) => <h1>{message}</h1>;
+
 function App() {
   return (
     // <CurrentUserLoader>
@@ -34,14 +45,14 @@ function App() {
     // </>
 
     <>
-      <DataSource
-        getDataFunc={async () => {
-          const response = await axios.get("/users/123");
-          return response.data;
-        }}
-        resourceName="user"
-      >
+      <DataSource getDataFunc={getServerData("/users/123")} resourceName="user">
         <UserInfo />
+      </DataSource>
+      <DataSource
+        getDataFunc={getLocalStorageData("message")}
+        resourceName="message"
+      >
+        <Text />
       </DataSource>
     </>
   );
