@@ -5,9 +5,10 @@ import { UncontrolledForm } from "./UncontrolledForm";
 import { useState } from "react";
 import { ControlledModal } from "./ControlledModal";
 import { UncontrolledOnboardingFlow } from "./UncontrolledOnboardingFlow";
+import { ControlledOnboardingFlow } from "./ControlledOnboardingFlow";
 
 function App() {
-  const [shouldShowModal, setShouldShowModal] = useState(false);
+  // const [shouldShowModal, setShouldShowModal] = useState(false);
 
   const StepOne = ({ goToNext }) => (
     <>
@@ -18,15 +19,30 @@ function App() {
   const StepTwo = ({ goToNext }) => (
     <>
       <h1>Step 2</h1>
-      <button onClick={() => goToNext({ age: 100 })}>Next</button>
+      <button onClick={() => goToNext({ age: 50 })}>Next</button>
     </>
   );
   const StepThree = ({ goToNext }) => (
     <>
       <h1>Step 3</h1>
+      <p>Congratulations! You qualify for our senior discount</p>
+      <button onClick={() => goToNext({})}>Next</button>
+    </>
+  );
+  const StepFour = ({ goToNext }) => (
+    <>
+      <h1>Step 4</h1>
       <button onClick={() => goToNext({ hairColor: "Brown" })}>Next</button>
     </>
   );
+
+  const [onboardingData, setOnboardingData] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const onNext = (stepData) => {
+    setOnboardingData({ ...onboardingData, ...stepData });
+    setCurrentIndex(currentIndex + 1);
+  };
 
   return (
     <div className="App">
@@ -46,6 +62,7 @@ function App() {
         {shouldShowModal ? "Hide Modal" : "Show Modal"}
       </button> */}
 
+      {/* 
       <UncontrolledOnboardingFlow
         onFinish={(data) => {
           console.log(data);
@@ -55,7 +72,14 @@ function App() {
         <StepOne />
         <StepTwo />
         <StepThree />
-      </UncontrolledOnboardingFlow>
+      </UncontrolledOnboardingFlow> */}
+
+      <ControlledOnboardingFlow currentIndex={currentIndex} onNext={onNext}>
+        <StepOne />
+        <StepTwo />
+        {onboardingData.age >= 62 && <StepThree />}
+        <StepFour />
+      </ControlledOnboardingFlow>
     </div>
   );
 }
