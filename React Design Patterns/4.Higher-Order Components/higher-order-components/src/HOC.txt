@@ -1,0 +1,2 @@
+Higher-Order Component
+A Component that returns another Component instead of JSX
