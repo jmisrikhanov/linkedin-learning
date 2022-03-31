@@ -34,5 +34,5 @@ export const UserInfoForm = withEditableUser(
       <p>Loading...</p>
     );
   },
-  "/users/123"
+  "123"
 );
